@@ -9,6 +9,22 @@ const UserSchema = new mongoose.Schema({
     type: String,
     require: true,
   },
+  playing: {
+    type: mongoose.mongo.ObjectId,
+    ref: "GameSchema",
+  },
+  completed: {
+    type: mongoose.mongo.ObjectId,
+    ref: "GameSchema",
+  },
+  dropped: {
+    type: mongoose.mongo.ObjectId,
+    ref: "GameSchema",
+  },
+  plantoplay: {
+    type: mongoose.mongo.ObjectId,
+    ref: "GameSchema",
+  },
 });
 
 mongoose.model("User", UserSchema);
