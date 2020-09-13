@@ -4,6 +4,7 @@ const requireDir = require("require-dir");
 
 //inicia app
 const app = express();
+app.use(express.json());
 
 //inicia o bd
 mongoose.connect("mongodb://localhost:27017/mygamelist", {
@@ -14,15 +15,7 @@ requireDir("./src/models");
 
 const Game = mongoose.model("Game");
 
-//rota
-app.get("/", (req, res) => {
-  Game.create({
-    title: "Little Nightmares",
-    synopsis:
-      "Immerse yourself in Little Nightmares, a dark whimsical tale that will confront you with your childhood fears",
-  });
-
-  return res.send("Hello");
-});
+//route
+app.use("/api", require("./src/routes"));
 
 app.listen(3001);
