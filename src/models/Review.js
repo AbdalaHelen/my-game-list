@@ -9,6 +9,14 @@ const ReviewSchema = new mongoose.Schema({
     type: Number,
     require: true,
   },
+  user: {
+    type: mongoose.mongo.ObjectId,
+    ref: "UserSchema",
+  },
+  game: {
+    type: mongoose.mongo.ObjectId,
+    ref: "GameSchema",
+  },
 });
 
 mongoose.model("Review", ReviewSchema);
