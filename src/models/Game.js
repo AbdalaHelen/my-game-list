@@ -17,6 +17,14 @@ const GameSchema = new mongoose.Schema({
     type: String,
     require: true,
   },
+  platforms: {
+    type: String,
+    require: true,
+  },
+  score: {
+    type: Number,
+    require: true,
+  },
 });
 
 mongoose.model("Game", GameSchema);
