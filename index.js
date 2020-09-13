@@ -14,6 +14,8 @@ mongoose.connect("mongodb://localhost:27017/mygamelist", {
 requireDir("./src/models");
 
 const Game = mongoose.model("Game");
+const User = mongoose.model("User");
+const Review = mongoose.model("Review");
 
 //route
 app.use("/api", require("./src/routes"));
