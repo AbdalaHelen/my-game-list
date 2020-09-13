@@ -16,6 +16,9 @@ requireDir("./src/models");
 const Game = mongoose.model("Game");
 const User = mongoose.model("User");
 const Review = mongoose.model("Review");
+const News = mongoose.model("News");
+const Post = mongoose.model("Post");
+const Comment = mongoose.model("Comment");
 
 //route
 app.use("/api", require("./src/routes"));
