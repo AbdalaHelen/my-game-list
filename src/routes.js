@@ -14,6 +14,34 @@ routes.post("/games", GameController.post);
 routes.put("/games/:id", GameController.update);
 routes.delete("/games/:id", GameController.delete);
 
+//authentication
+let isAuthenticated = (req, res, next) => {
+  if (req.isAuthenticated()) return next();
+  else
+    return res.status(401).json({
+      message: "Authentication necessary",
+    });
+};
+
+routes.post("/login", (req, res, next) => {
+  return new userController().login(req, res, next);
+});
+
+routes.get("/logout", isAuthenticated, (req, res) => {
+  req.logout();
+  req.session.destroy();
+
+  return res.status(200).json({ message: "Logout realizado com sucesso" });
+});
+
+routes.get("/login/sucess", (req, res) => {
+  return new userController().sucess(req, res);
+});
+
+routes.get("/login/failed", (req, res) => {
+  return new userController().failed(req, res);
+});
+
 routes.get("/users", UserController.getAll);
 routes.get("/users/:id", UserController.getById);
 routes.post("/users", UserController.post);

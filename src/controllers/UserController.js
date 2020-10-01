@@ -34,4 +34,20 @@ module.exports = {
 
     return res.send();
   },
+
+  login(req, res, next) {
+    passport.authenticate("local", {
+      successRedirect: "/users/login/sucess",
+      failureRedirect: "/users/login/failed",
+      failureFlash: true,
+    })(req, res, next);
+  },
+
+  sucess(req, res) {
+    return res.status(200).json({ message: "Login successful!" });
+  },
+
+  failed(req, res) {
+    return res.status(500).json({ message: "Incorrect password" });
+  },
 };

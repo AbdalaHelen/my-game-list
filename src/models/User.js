@@ -9,6 +9,10 @@ const UserSchema = new mongoose.Schema({
     type: String,
     require: true,
   },
+  password: {
+    type: String,
+    required: true,
+  },
   playing: {
     type: mongoose.mongo.ObjectId,
     ref: "GameSchema",
