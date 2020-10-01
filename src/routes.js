@@ -23,23 +23,23 @@ let isAuthenticated = (req, res, next) => {
     });
 };
 
-routes.post("/login", (req, res, next) => {
-  return new userController().login(req, res, next);
+routes.post("/users/login", (req, res, next) => {
+  return UserController.login(req, res, next);
 });
 
-routes.get("/logout", isAuthenticated, (req, res) => {
+routes.get("/users/logout", isAuthenticated, (req, res) => {
   req.logout();
   req.session.destroy();
 
-  return res.status(200).json({ message: "Logout realizado com sucesso" });
+  return res.status(200).json({ message: "Logout successful" });
 });
 
-routes.get("/login/sucess", (req, res) => {
-  return new userController().sucess(req, res);
+routes.get("/users/login/sucess", (req, res) => {
+  return UserController.sucess(req, res);
 });
 
-routes.get("/login/failed", (req, res) => {
-  return new userController().failed(req, res);
+routes.get("/users/login/failed", (req, res) => {
+  return UserController.failed(req, res);
 });
 
 routes.get("/users", UserController.getAll);

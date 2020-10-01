@@ -1,4 +1,6 @@
 const mongoose = require("mongoose");
+const passport = require("passport");
+const bcrypt = require("bcryptjs");
 
 const User = mongoose.model("User");
 
@@ -37,8 +39,8 @@ module.exports = {
 
   login(req, res, next) {
     passport.authenticate("local", {
-      successRedirect: "/users/login/sucess",
-      failureRedirect: "/users/login/failed",
+      successRedirect: "/api/users/login/sucess",
+      failureRedirect: "/api/users/login/failed",
       failureFlash: true,
     })(req, res, next);
   },
@@ -49,5 +51,18 @@ module.exports = {
 
   failed(req, res) {
     return res.status(500).json({ message: "Incorrect password" });
+  },
+
+  async post(req, res) {
+    let u = {
+      email: "helen@gmail.com",
+      password: "12345",
+    };
+
+    if (!!u.password) u.password = bcrypt.hashSync(u.password);
+
+    const user = await User.create(u);
+
+    return res.json(user);
   },
 };

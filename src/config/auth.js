@@ -2,9 +2,9 @@ const passport = require("passport");
 
 const localStrategy = require("passport-local").Strategy;
 const mongoose = require("mongoose");
-const bcrypt = require("bcryptjs");
+const bcryptjs = require("bcryptjs");
 
-//model de user
+//model user
 require("../models/User");
 const User = mongoose.model("User");
 
@@ -14,16 +14,16 @@ module.exports = function (passport) {
     new localStrategy(
       { usernameField: "email", passwordField: "password" },
       (email, password, done) => {
-        User.findOne({ email: email }).then((user) => {
-          if (!user) {
+        User.findOne({ email: email }).then((User) => {
+          if (!User) {
             return done(null, false, {
               message: "This account does not exist",
             });
           }
 
-          bcrypt.compare(password, User.password, (error, correct) => {
+          bcryptjs.compare(password, User.password, (err, correct) => {
             if (correct) {
-              return done(null, user);
+              return done(null, User);
             } else {
               return done(null, false, { message: "Incorrect password" });
             }
@@ -33,12 +33,12 @@ module.exports = function (passport) {
     )
   );
 
-  passport.serializeUser((user, done) => {
-    done(null, user.id);
+  passport.serializeUser((User, done) => {
+    done(null, User.id);
   });
 
   passport.deserializeUser((id, done) => {
-    User.findById(id, (err, user) => {
+    User.findById(id, (err, User) => {
       done(err, User);
     });
   });
