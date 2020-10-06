@@ -55,8 +55,7 @@ module.exports = {
 
   async post(req, res) {
     let u = {
-      email: "helen@gmail.com",
-      password: "12345",
+      ...req.body,
     };
 
     if (!!u.password) u.password = bcrypt.hashSync(u.password);
